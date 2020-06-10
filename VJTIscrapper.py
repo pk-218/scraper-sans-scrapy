@@ -1,5 +1,14 @@
+from flask import Flask, jsonify, request
 import requests
 from bs4 import BeautifulSoup
+
+app = Flask(__name__)
+
+
+@app.route('/', methods=['GET'])
+def linkscraper():
+    return 'ToScrape'
+
 
 url_news = "https://www.vjti.ac.in/"
 
@@ -10,7 +19,7 @@ headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'Referer': 'http://www.wikipedia.org/',
         'Connection': 'keep-alive',
-    }
+}
 
 r = requests.get(url=url_news, headers=headers)
 
@@ -24,3 +33,8 @@ for custom in customs:
                         print(Links)
         except Exception:
                 pass
+
+
+if __name__ == '__main__':
+    app.run(port=5000)
+
