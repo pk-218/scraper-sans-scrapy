@@ -1,13 +1,16 @@
 from flask import Flask, jsonify, request
 import requests
 from bs4 import BeautifulSoup
+from collections import defaultdict
 
 app = Flask(__name__)
+
 
 @app.route('/', methods=['GET'])
 def linkScraper():
 
-        d = []  # TODO: Change list to dictionary with keys as [1]th index of the Links (on splitting Links at '/')
+        d = []
+        """"  # TODO: Change list to dictionary with keys as [1]th index of the Links (on splitting Links at '/')"""
         # Keys could be DEGREE, DIPLOMA, Exam_Section and so on
 
         url_news = "https://www.vjti.ac.in"         # link to scrape links from
@@ -29,18 +32,50 @@ def linkScraper():
                 try:
                         links = custom.find_all("a")
                         for link in links:
-                                Links = url_news + link.get("href")    # adding URI to source IDs of links to get URL
-                                print(Links)
-                                d.append(Links)
+                                if "https" in link.get("href"):
+                                        Links = link.get("href")    # adding URI to source IDs of links to get URL
+                                        # print(Links)
+                                        d.append(Links)
+                                else:
+                                        Links = url_news + link.get("href")
+                                        # print(Links)
+                                        d.append(Links)
                 except Exception:
                         links = None
 
-        d.pop(-1)       # removing last item for list which is not required
+        d.pop(-1)  # removing last item for list which is not required
+        json_dict = defaultdict(list)
+        """title = []
+        try:
+                for item in d:
+                        key_name = item.split('/')[4]
+                        title.append(key_name)
+        except Exception as e:
+                print(e)
 
-        return jsonify(d)       # to decode JSON later in Flutter, converting obtained data to JSON
+        try:
+                for i in range(len(title)):
+                        key = title[i]
+                        key_value = d[i]
+                        json_dict.update(dict.fromkeys(key, key_value))
+        except Exception as e:
+                print(e)"""""
+        try:
+                for item in d:
+                        title = item.split('/')[4]
+                        try:
+                                json_dict[title].append(item)
+                                print(json_dict)
+                        except Exception as e:
+                                print(e)
+
+        except Exception as e:
+                print(e)
+
+        return jsonify(json_dict)       # to decode JSON later in Flutter, converting obtained data to JSON
 
 
 if __name__ == '__main__':
     app.run(port=5000)
-    # TODO: Upload FLask app on server to support backend and provide URL to be used on Flutter app
+    # TODO: Upload Flask app on server to support backend and provide URL to be used on Flutter app
 
