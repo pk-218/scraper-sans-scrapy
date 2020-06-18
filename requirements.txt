@@ -98,7 +98,6 @@ olefile==0.46
 openpyxl==3.0.3
 packaging==20.1
 pandas==1.0.1
-pandocfilters==1.4.2
 paramiko==2.7.1
 parso==0.5.2
 partd==1.1.0
@@ -114,7 +113,6 @@ pluggy==0.13.1
 ply==3.11
 prometheus-client==0.7.1
 prompt-toolkit==3.0.3
-protobuf==3.12.3
 psutil==5.6.7
 py==1.8.1
 pycodestyle==2.5.0
@@ -132,20 +130,13 @@ pyreadline==2.1
 pyrsistent==0.15.7
 PySocks==1.7.1
 pytest==5.3.5
-pytest-arraydiff==0.3
-pytest-astropy==0.8.0
-pytest-astropy-header==0.1.2
-pytest-doctestplus==0.5.0
 pytest-openfiles==0.4.0
 pytest-remotedata==0.3.2
 python-dateutil==2.8.1
 python-jsonrpc-server==0.3.4
-python-language-server==0.31.7
 pytz==2019.3
 PyWavelets==1.1.1
 pywin32==227
-pywin32-ctypes==0.2.0
-pywinpty==0.5.7
 PyYAML==5.3
 pyzmq==18.1.1
 QDarkStyle==2.8
