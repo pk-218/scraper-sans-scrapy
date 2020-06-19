@@ -1,13 +1,15 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
+from flask_apscheduler import APScheduler
 import requests
 from bs4 import BeautifulSoup
 from collections import defaultdict
 
 app = Flask(__name__)
+scheduler = APScheduler()
 
 
 @app.route('/', methods=['GET'])
-def linkScraper():
+def linkScrapper():
 
         d = []
         """"  # TODO: Change list to dictionary with keys as [1]th index of the Links (on splitting Links at '/')"""
@@ -75,7 +77,11 @@ def linkScraper():
         return jsonify(json_dict)       # to decode JSON later in Flutter, converting obtained data to JSON
 
 
-if __name__ == '__main__':
-    app.run(port=5000)
-    # TODO: Upload Flask app on server to support backend and provide URL to be used on Flutter app
+def scheduledTask():
+        linkScrapper()
 
+
+if __name__ == '__main__':
+        scheduler.add_job(id='Scheduled Task', func=scheduledTask, trigger='interval', seconds=5)
+        scheduler.start()
+        app.run(port=5000)
