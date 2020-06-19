@@ -4,7 +4,7 @@ from collegescrapper import linkScrapper
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('interval', minutes='1')
+@sched.scheduled_job('interval', minutes=1)
 def update_a():
     linkScrapper()
 
