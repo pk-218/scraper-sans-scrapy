@@ -1,2 +1,2 @@
 web: gunicorn run:app
-clock: python jobs.py
+clock: python collegescrapper.py
