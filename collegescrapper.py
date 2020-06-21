@@ -1,3 +1,4 @@
+import pytest
 from flask import Flask, jsonify, current_app
 from flask_apscheduler import APScheduler
 import requests
@@ -7,7 +8,10 @@ from collections import defaultdict
 
 app = Flask(__name__)
 scheduler = APScheduler()
-with app.app_context():
+@pytest.fixture
+def app_context():
+    with app.app_context():
+        yield
 
         @app.route('/', methods=['GET'])
         def linkScrapper():
