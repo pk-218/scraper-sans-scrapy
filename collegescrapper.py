@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, current_app
+from flask import Flask, jsonify
 from flask_apscheduler import APScheduler
 import requests
 from bs4 import BeautifulSoup
@@ -9,7 +9,7 @@ app = Flask(__name__)
 scheduler = APScheduler()
 @app.route('/', methods=['GET'])
 def linkScrapper():
-
+    with app.app_context():
                 d = []
                 url_news = "https://www.vjti.ac.in"         # link to scrape links from
                 r = requests.get(url=url_news)  # , headers=headers
@@ -48,6 +48,6 @@ def linkScrapper():
 
 
 if __name__ == '__main__':
-        scheduler.add_job(id='Scheduled Task', func=linkScrapper, trigger='interval', seconds=2)
+        scheduler.add_job(id='Scheduled Task', func=linkScrapper, trigger='interval', minutes=1)
         scheduler.start()
         app.run()
