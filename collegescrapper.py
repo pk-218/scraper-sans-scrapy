@@ -50,4 +50,4 @@ def linkScrapper():
 if __name__ == '__main__':
         scheduler.add_job(id='Scheduled Task', func=linkScrapper, trigger='interval', minutes=1)
         scheduler.start()
-        app.run()
+        app.run(debug=True, port=33507)
