@@ -1,3 +1,3 @@
 web: gunicorn CollegeScrapper.wsgi
-web: gunicorn run:app
+web: gunicorn collegescrapper:app
 clock: python collegescrapper.py
